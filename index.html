@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactome</title>
+
+    <style>
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.7;
+        }
+
+        #legend-container {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+        }
+
+        .legend-item {
+            margin-bottom: 10px;
+        }
+        
+        .legend-item-type2 {
+            margin-bottom: 25px;
+        }        
+
+        .legend-rect {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .legend-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 3px solid black; /* Add a black border */
+        }
+        
+        /* Adjust the position of the checkbox label */
+        label {
+            display: inline-block;
+            margin-top: 50px; 
+            font-size: 20px; /* Set the font size for the label */
+        }
+        
+        /* Adjust the size of the checkbox */
+        input[type="checkbox"] {
+            transform: scale(1.5); /* Increase the size of the checkbox */
+/*             margin-right: 5px; /* Adjust the spacing between the checkbox and label */
+        }   
+        
+        .text-label {
+            display: none;
+        }
+
+        .text-label.always-visible,
+        .text-label.mouseover-visible {
+            display: inline;
+        }       
+         
+    </style>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="node-pie.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+
+    <div id="network-container"></div>       
+
+    <svg width="1400" height="1400"></svg>
+
+    <!-- Add a legend container -->
+    <div id="legend-container">    
+        <div class="legend-item">
+            <div class="legend-rect" style="background-color: #e08214;"></div>
+            SARS-Cov-2
+        </div>
+        <div class="legend-item-type2">
+            <div class="legend-rect" style="background-color: #8073ac;"></div>
+            EBV
+        </div>  
+        <div class="legend-item-type2">
+            <div class="legend-circle" style="background-color: #f7f7f7;"></div>
+            <div class="legend-circle" style="background-color: #e08214;"></div>
+            <div class="legend-circle" style="background-color: #8073ac;"></div>
+            Differentialy methylated
+        </div>          
+        <label for="toggleModulesCheckbox">Toggle Modules</label>
+        <input type="checkbox" id="toggleModulesCheckbox" onchange="toggleModules(this)">
+    </div>
+
+</body>
+</html>
