@@ -1,4 +1,3 @@
-
 var DEFAULT_OPTIONS = {
     radius: 8,
     outerStrokeWidth: 1,
@@ -6,8 +5,9 @@ var DEFAULT_OPTIONS = {
     showPieChartBorder: true,
     pieChartBorderColor: 'white',
     pieChartBorderWidth: '1',
-    showLabelText: false,
+    showLabelText: true,
     labelText: 'text',
+    labelWeight: 'bold',
     labelColor: 'blue'
 };
 
@@ -48,7 +48,7 @@ function drawPieChartBorder(nodeElement, options) {
         .attr("stroke-width", pieChartBorderWidth);
 }
 
-function drawPieChart(nodeElement, percentages, options) {
+function drawPieChart(nodeElement, percentages, options, colorScale) {
     var radius = getOptionOrDefault('radius', options);
     var halfRadius = radius / 2;
     var halfCircumference = 2 * Math.PI * halfRadius;
@@ -60,7 +60,7 @@ function drawPieChart(nodeElement, percentages, options) {
         nodeElement.insert('circle', '#parent-pie + *')
             .attr("r", halfRadius)
             .attr("fill", 'transparent')
-            .style('stroke', color(percentages[p].color))
+            .style('stroke', colorScale(percentages[p].color))  
             .style('stroke-width', radius)
             .style('stroke-dasharray',
                     halfCircumference * percentToDraw / 100
@@ -73,28 +73,70 @@ function drawTitleText(nodeElement, options) {
     var radius = getOptionOrDefault('radius', options);
     var text = getOptionOrDefault('labelText', options);
     var color = getOptionOrDefault('labelColor', options);
+    var labelWeight = getOptionOrDefault('labelWeight', options);
 
-    nodeElement.append("text")
-        .text(String(text))
-        .attr("fill", color)
-        .attr("dy", radius * 3);
+    var textElement = nodeElement.select(".text-label");
+    
+    var fontSize = 12;
+
+    if (textElement.empty()) {
+        textElement = nodeElement.append("text")
+            .attr("class", "text-label")
+            .attr("fill", color)
+            .attr("dy", radius * 3)
+            .style("font-size", fontSize + "px")
+            .style("font-weight", labelWeight)
+            .style("pointer-events", "none");
+    }
+
+    // Set text content
+    textElement.text(String(text));
+
+    // Set initial visibility based on the group and showLabelText option
+    textElement.style("display", options.group === 1 ? "inline" : "none");
+
+    // Add mouseover and mouseout events directly to the nodeElement
+    nodeElement.on("mouseover", function () {
+        if (options.group === 0 && options.showLabelText) {
+            textElement.style("visibility", "visible");
+        }
+    }).on("mouseout", function () {
+        if (options.group === 0) {
+            textElement.style("visibility", "hidden");
+        }
+    });
 }
 
+
+
+
 var NodePieBuilder = {
-    drawNodePie: function (nodeElement, percentages, options) {
+    drawNodePie: function (nodeElement, percentages, options, colorScale) {
         drawParentCircle(nodeElement, options);
 
         if (!percentages) return;
-        drawPieChart(nodeElement, percentages, options);
+        drawPieChart(nodeElement, percentages, options, colorScale);
 
         var showPieChartBorder = getOptionOrDefault('showPieChartBorder', options);
         if (showPieChartBorder) {
             drawPieChartBorder(nodeElement, options);
         }
 
-        var showLabelText = getOptionOrDefault('showLabelText', options);
-        if (showLabelText) {
-            drawTitleText(nodeElement, options);
-        }
+        drawTitleText(nodeElement, options);
+
+        // Add mouseover and mouseout events directly to the nodeElement
+        nodeElement.on("mouseover", function () {
+            if (options.group === 0 && options.showLabelText) {
+                nodeElement.select(".text-label").style("display", "inline");
+            }
+        }).on("mouseout", function () {
+            if (options.group === 0) {
+                nodeElement.select(".text-label").style("display", "none");
+            }
+        });
     }
 };
+
+
+
+
