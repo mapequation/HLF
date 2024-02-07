@@ -159,4 +159,6 @@ function redrawPieCharts() {
     d3.selectAll(".links line")
         .style("stroke", "#999")
         .attr("stroke-opacity", 0.7);
+
+    simulation.restart();
 }
