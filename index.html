@@ -44,12 +44,20 @@
             border: 3px solid black; /* Add a black border */
         }
         
+        .checkbox-item {
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-item-type2 {
+            margin-bottom: 10px;
+        }          
+        
         /* Adjust the position of the checkbox label */
         label {
             display: inline-block;
-            margin-top: 50px; 
+            margin-top: 10px; 
             font-size: 20px; /* Set the font size for the label */
-        }
+        }             
         
         /* Adjust the size of the checkbox */
         input[type="checkbox"] {
@@ -94,9 +102,15 @@
             <div class="legend-circle" style="background-color: #e08214;"></div>
             <div class="legend-circle" style="background-color: #8073ac;"></div>
             Differentialy methylated
-        </div>          
-        <label for="toggleModulesCheckbox">Show Modules</label>
-        <input type="checkbox" id="toggleModulesCheckbox" onchange="toggleModules(this)">
+        </div>   
+        <div class="checkbox-item">            
+            <input type="checkbox" id="toggleModulesCheckbox" onchange="toggleModules(this)">  
+            <label for="toggleModulesCheckbox">Show Modules</label>
+        </div>  
+        <div class="checkbox-item-type2">            
+            <input type="checkbox" id="highlightSymptomsCheckbox" onchange="highlightSymptoms(this)">                           
+            <label for="highlightSymptomsCheckbox">Symptom related DMGs</label>
+        </div>  
     </div>
 
 </body>
