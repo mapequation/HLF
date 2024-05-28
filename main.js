@@ -162,3 +162,14 @@ function redrawPieCharts() {
 
     simulation.restart();
 }
+
+highlightSymptoms = function (checkbox) {
+    var isChecked = checkbox.checked;
+    if (isChecked) {
+        d3.selectAll("circle")
+        .attr("opacity", d => d.opacity);   
+    } else {
+        d3.selectAll("circle")
+        .attr("opacity", 1.0);        
+    }
+};
