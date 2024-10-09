@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     color = d3.scaleOrdinal(["#e08214", "#8073ac", "#f7f7f7"]);
     colorMethylation = d3.scaleOrdinal(["#bababa", "#4d4d4d"]);
     colorLabel = d3.scaleOrdinal(["#4d4d4d", "#4d4d4d"]);
-    colorModule = d3.scaleOrdinal(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#5254a3', '#8ca252', '#bd9e39', '#ad494a', '#a55194', '#6baed6', '#fd8d3c']);
+    colorModule = d3.scaleOrdinal(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#5254a3', '#8ca252', '#bd9e39', '#ad494a', '#a55194', '#6baed6', '#fff']);
     BorderDMG = [0, 8];
     labelWeight = ["normal", "bold"];
 
